@@ -2,12 +2,13 @@
 SELECT TOP 10 *
 FROM XpressTech;
 
---DEMOGRAPHY
+
 -- The count of rows in the dataset
 SELECT COUNT(*)
 FROM XpressTech;
 
 
+--DEMOGRAPHY
 --Grouping the customers by gender
 SELECT Gender,
 	   COUNT(*) AS Customers
@@ -37,6 +38,7 @@ GROUP BY CASE WHEN Age > 30 THEN 'Above 30'
 			WHEN Age BETWEEN 20 AND 25 THEN '20-25'
 			ELSE 'Below 20'
 			END;
+
 
 --Grouping the customers by occupation
 SELECT Occupation,
@@ -70,7 +72,7 @@ GROUP BY Family_size
 ORDER BY Customers DESC;
 
 
---PYSCHOGRAPHY/PREFERENCE
+--PREFERENCE
 --Grouping the customers by best medium for placing orders
 SELECT Medium_P1 AS First_Medium_for_ordering,
 	   COUNT(*) AS Customers
@@ -141,6 +143,7 @@ SELECT Less_Delivery_time,
 	   Good_Quantity
 FROM XpressTech;
 
+
 -- Using UNION ALL to combine the responses
 	SELECT 'Less_Delivery_time' AS Survey_Questions,
 			Less_Delivery_time AS Responses
@@ -188,8 +191,9 @@ FROM (SELECT Less_Delivery_time,
 		     Good_Quantity
 	    FROM XpressTech) As Source_table
 UNPIVOT (Responses
-		FOR [Survey_Questions] IN (Less_Delivery_time, High_Quality_of_package, Number_of_calls,
-							Politeness, Freshness, Temperature, Good_Taste, Good_Quantity)
+		FOR [Survey_Questions] IN (Less_Delivery_time, High_Quality_of_package,
+					   Number_of_calls, Politeness, Freshness, 
+					   Temperature, Good_Taste, Good_Quantity)
 		) AS UNPivt_table;
 
 
@@ -256,9 +260,11 @@ FROM  (SELECT  Ease_and_convenient,
 			   Delivery_person_ability
 		FROM XpressTech) AS Source_table
 UNPIVOT (Responses
-		FOR [Survey_items] IN ( Ease_and_convenient, Time_saving, More_restaurant_choices, Easy_Payment_option, More_Offers_and_Discount,
-								Good_Food_quality, Good_Tracking_system, Self_Cooking, Health_Concern, Late_Delivery, Poor_Hygiene,
-								   Bad_past_experience, Unavailability, Unaffordable, Long_delivery_time, Delay_of_delivery_person_getting_assigned,
-								   Delay_of_delivery_person_picking_up_food, Wrong_order_delivered, Missing_item, Order_placed_by_mistake,
-								   Residence_in_busy_location, Google_Maps_Accuracy, Good_Road_Condition, Low_quantity_low_time, Delivery_person_ability)
+		FOR [Survey_items] IN ( Ease_and_convenient, Time_saving, More_restaurant_choices, Easy_Payment_option, 
+					More_Offers_and_Discount, Good_Food_quality, Good_Tracking_system, Self_Cooking, 
+					Health_Concern, Late_Delivery, Poor_Hygiene, Bad_past_experience, Unavailability,
+				        Unaffordable, Long_delivery_time, Delay_of_delivery_person_getting_assigned,
+					 Delay_of_delivery_person_picking_up_food, Wrong_order_delivered, Missing_item, 
+					Order_placed_by_mistake, Residence_in_busy_location, Google_Maps_Accuracy,
+					Good_Road_Condition, Low_quantity_low_time, Delivery_person_ability)
 			   ) AS UNPivt_table;
